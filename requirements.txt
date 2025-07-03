@@ -1,0 +1,11 @@
+fastapi==0.115.1
+uvicorn[standard]==0.17.6
+SQLAlchemy[asyncio]==2.0.40
+asyncpg==0.29.0
+alembic==1.13.1
+pydantic==2.11.3
+pydantic-settings==2.8.1
+python-dotenv==1.1.0
+pytest==8.4.1
+httpx==0.28.1
+aiosqlite==0.21.0
