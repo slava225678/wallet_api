@@ -12,6 +12,10 @@ from app.schemas.wallet import OperationType
 
 @pytest.mark.asyncio
 async def test_wallet_deposit_and_balance(session, client: AsyncClient):
+    """
+    Проверяет успешное пополнение 
+    кошелька и получение актуального баланса.
+    """
     wallet = Wallet(id=uuid4(), balance=NULL)
     session.add(wallet)
     await session.commit()
@@ -31,6 +35,7 @@ async def test_wallet_deposit_and_balance(session, client: AsyncClient):
 
 @pytest.mark.asyncio
 async def test_wallet_withdraw_insufficient_funds(
+    """Проверяет отказ операции снятия при недостаточном балансе."""
     session, client:
     AsyncClient
 ):
@@ -48,6 +53,7 @@ async def test_wallet_withdraw_insufficient_funds(
 
 @pytest.mark.asyncio
 async def test_wallet_invalid_uuid(client: AsyncClient):
+    """Проверяет, что при некорректном UUID вернётся 422 ошибка валидации."""
     invalid_uuid = "not-a-uuid"
     response = await client.get(f"{BASE_URL}/{invalid_uuid}")
     assert (response.status_code
@@ -57,6 +63,7 @@ async def test_wallet_invalid_uuid(client: AsyncClient):
 
 @pytest.mark.asyncio
 async def test_wallet_invalid_operation_type(session, client: AsyncClient):
+    """Проверяет, что FastAPI отклонит запрос с недопустимым типом операции."""
     wallet = Wallet(id=uuid4(), balance=ONE_HUN)
     session.add(wallet)
     await session.commit()
