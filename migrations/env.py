@@ -22,7 +22,6 @@ target_metadata = Base.metadata
 
 
 def run_migrations_offline():
-    """Запускаем миграции в offline-режиме (без подключения к БД)."""
     url = config.get_main_option("sqlalchemy.url")
     context.configure(
         url=url,
@@ -39,7 +38,7 @@ def do_run_migrations(connection):
     context.configure(
         connection=connection,
         target_metadata=target_metadata,
-        render_as_batch=True,  # Не обязательно, но безопасно оставить
+        render_as_batch=True,
     )
 
     with context.begin_transaction():
@@ -47,7 +46,6 @@ def do_run_migrations(connection):
 
 
 async def run_migrations_online():
-    """Запускаем миграции в online-режиме (через асинхронное подключение)."""
     connectable = async_engine_from_config(
         config.get_section(config.config_ini_section),
         prefix="sqlalchemy.",
